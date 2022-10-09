@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  this is fetchg
+  <script src="/__build__/js-monitor-sdk.js"></script>
+  <script>
+
+    // get请求 正常 无参数
+    fetch('http://127.0.0.1:3002/get').then(async res => {
+      console.log('fetch get',await res.json());
+    })
+   </script>
+</body>
+</html>

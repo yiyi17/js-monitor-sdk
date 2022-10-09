@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <script>
+      ;(function() {
+         var head=document.head||document.getElementsByTagName('head')[0];
+         if(head){
+           var script=document.createElement('script');
+          script.src="/__build__/js-monitor-sdk.js";
+          script.setAttribute('instanced', 'yes')
+          // 是否上报日志
+          script.setAttribute('disableLog', 'yes')
+          head.appendChild(script)
+         }
+       })();
+    </script>
+  <body>
+    cdn
+  </body>
+</html>

@@ -1,0 +1,6 @@
+dist
+.vscode
+/docs
+test
+rollup.config.ts
+statsc-client

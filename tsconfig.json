@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "importHelpers": true,
+    "moduleResolution": "node",
+    "target": "es5",
+    "module": "esnext",
+    "lib": ["es2015", "es2016", "es2017", "dom"],
+    "noEmit": true,
+    "esModuleInterop": true,
+    "strict": true,
+    "sourceMap": true,
+    "declaration": true,
+    "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "declarationDir": "dist/types",
+    "outDir": "dist/lib",
+    "typeRoots": ["node_modules/@types"],
+    "removeComments": false,
+    "downlevelIteration": true,
+    "resolveJsonModule": true,
+    "baseUrl": ".",
+    "paths": {
+      "js-monitor-sdk/types/packages/types/*": ["./packages/types/*"]
+    }
+  },
+  "include": ["packages"],
+  "exclude": ["rollup.config.ts", "test", "tests"],
+  "typeAcquisition": {
+    "include": ["jest"]
+  }
+}

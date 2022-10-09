@@ -1,0 +1,21 @@
+{
+  "author": "spaceZ",
+  "dependencies": {},
+  "description": "日志采集的core模块",
+  "devDependencies": {
+    "@types/node": "^17.0.2",
+    "rimraf": "^3.0.2",
+    "rollup-plugin-sourcemaps": "^0.6.3",
+    "rollup-plugin-typescript2": "^0.31.1"
+  },
+  "license": "ISC",
+  "main": "./index.ts",
+  "module": "dist/core.es5.js",
+  "name": "@msfe/core",
+  "scripts": {
+    "build": "rollup -c rollup.config.ts",
+    "prebuild": "rimraf dist"
+  },
+  "typings": "dist/types/index.d.ts",
+  "version": "0.0.1"
+}

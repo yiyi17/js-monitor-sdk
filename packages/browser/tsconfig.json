@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "importHelpers": true,
+    "moduleResolution": "node",
+    "target": "es5",
+    "module": "esnext",
+    "lib": ["es2015", "es2016", "es2017", "dom"],
+    "noEmit": true,
+    "esModuleInterop": true,
+    "strict": true,
+    "sourceMap": true,
+    "declaration": true,
+    "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "declarationDir": "dist/types",
+    "outDir": "dist/lib",
+    "baseUrl": ".",
+    "paths": {
+      "js-monitor-sdk/types/packages/types/*":["../types/*"]
+    },
+    "typeRoots": ["node_modules/@types"],
+    "removeComments":false,
+    "downlevelIteration":true,
+    "resolveJsonModule":true
+  },
+  "include": [".", "../core/libs/common-data.ts"]
+}

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Interceptor example</title>
+  </head>
+  <script>
+
+    window.__RESOURCEERROR__ =  []
+    console.log(1111);
+    window.addEventListener('error', (event) => {
+      window.__RESOURCEERROR__.push(event)
+      // console.log(__RESOURCEERROR__);
+    },true)
+
+  </script>
+  <body>
+    <div>
+      <!-- 资源加载错误 -->
+      <img src="111" alt="">
+    </div>
+    <div>
+      this is resource error
+    </div>
+  </body>
+  <script src="/__build__/js-monitor-sdk.js"></script>
+
+  <script>
+
+
+  </script>
+</html>

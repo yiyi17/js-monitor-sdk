@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`all features enabled should parse option "performance loading" 1`] = `
+Array [
+  Array [
+    "load",
+    [Function],
+  ],
+]
+`;

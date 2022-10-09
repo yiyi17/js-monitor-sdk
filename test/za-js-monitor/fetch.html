@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  this is fetchg
+  <script src="/__build__/js-monitor-sdk.js"></script>
+  <script>
+
+    // get请求 正常 无参数
+    fetch('http://127.0.0.1:3002/get').then(async res => {
+      console.log('fetch get',await res.json());
+    })
+    // get请求 正常，带参数
+    fetch('http://127.0.0.1:3002/get?a=123').then(res => {
+      // console.log('fetch get',res);
+    })
+
+     // Post请求 正常 无参数
+     fetch('http://127.0.0.1:3002/post',{
+      method: 'POST',
+    }).then(res => {
+      // console.log('fetch post', res);
+    })
+    // Post请求 正常 带参数
+    fetch('http://127.0.0.1:3002/post',{
+      method: 'POST',
+      body:JSON.stringify({a:1})
+    }).then(res => {
+      // console.log('fetch post', res);
+    })
+
+    // get请求 正常，method 配置
+    fetch('http://127.0.0.1:3002/get',{
+      method: 'GET',
+    }).then(async (res) => {
+      // console.log('fetch', await res);
+    })
+
+    // get请求 异常 无参数
+    fetch('http://127.0.0.1:3002/get/error',{
+      // method: 'GET',
+    }).then(async (res) => {
+      // console.log('fetch', await res);
+    })
+
+    // get请求 异常 带参数
+    fetch('http://127.0.0.1:3002/get/error?a=123',{
+      // method: 'GET',
+    }).then(async (res) => {
+      // console.log('fetch', await res);
+    })
+     // get请求 慢请求 无参数
+     fetch('http://127.0.0.1:3002/get/slow',{
+      // method: 'GET',
+    }).then(async (res) => {
+      // console.log('fetch', await res);
+    })
+
+     // get请求 慢请求 带参数
+     fetch('http://127.0.0.1:3002/get/slow?a=12',{
+       data:{
+         b:23
+       }
+      // method: 'GET',
+    }).then(async (res) => {
+      // console.log('fetch', await res);
+    })
+
+
+     // post请求 异常 无参数
+     fetch('http://127.0.0.1:3002/post/error',{
+      method: 'POST',
+    }).then(async (res) => {
+      // console.log('fetch', await res);
+    })
+
+      // post请求 异常 带参数
+      fetch('http://127.0.0.1:3002/post/error',{
+      method: 'POST',
+      data: {a:123}
+    }).then(async (res) => {
+      console.log('fetch', await res);
+    })
+
+     // post请求 慢请求 带参数
+     fetch('http://127.0.0.1:3002/post/slow',{
+      method: 'POST',
+      data: {a:123}
+    }).then(async (res) => {
+      // console.log('fetch', await res);
+    })
+      // post请求 慢请求 无参数
+      fetch('http://127.0.0.1:3002/post/slow',{
+      method: 'POST',
+    }).then(async (res) => {
+      // console.log('fetch', res.body);
+    })
+
+
+
+
+  </script>
+  <script>
+
+fetch('http://127.0.0.1:3002/html').then(async res => {
+  console.log('fetch get',res);
+})
+  </script>
+</body>
+</html>

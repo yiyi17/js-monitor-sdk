@@ -1,0 +1,17 @@
+{
+  "author": "",
+  "dependencies": {
+    "koa": "^2.13.4",
+    "koa-body": "^4.2.0",
+    "koa-router": "^10.1.1"
+  },
+  "description": "",
+  "keywords": [],
+  "license": "ISC",
+  "main": "index.js",
+  "name": "server-mock",
+  "scripts": {
+    "start": "npx nodemon index.js"
+  },
+  "version": "1.0.0"
+}

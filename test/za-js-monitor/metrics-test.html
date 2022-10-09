@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>111
+  <script src="./dist/js-monitor-sdk.umd.js"></script>
+
+  <script>
+    window.addEventListener('load', () => {
+
+const monitor = new JSMonitor({
+  performance: true, // 采集性能
+  resourceError: true, // 采集资源加载错误
+  request: true, // 采集请求异常
+  runtimeError: true, // 采集错误
+  userActions: true, // 用户行为收集
+  metrics: true, // 自定义指标服务
+  trace: {
+    open: true,
+    apiList: ['127.0.0.1'],
+    ignoreList: ['/sc-profiler'],
+  }, // 接入trace
+  common: {
+    disableLog: false, // 是否禁止日志上报，建议本地改为 true
+    // @ts-ignore
+    projectId: 'test', // 项目id，唯一标识，必传
+    // xxx 也可以在这里配置上传的字段，例如userId,
+    userId: 'xxx', // 非必传，
+    extra: {
+      // ... 其他字段，非必传
+    },
+  },
+});
+
+console.log(monitor.statsc);
+
+monitor.metrics('customLogic.action')
+    })
+
+  </script>
+</body>
+</html>
