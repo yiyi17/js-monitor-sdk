@@ -12,7 +12,7 @@ export default function getResourceError(evt: Event): ErrorData | undefined {
     type: 'ResourceError',
     url: '',
     baseURI: undefined,
-    tagName: undefined
+    tagName: undefined,
   };
   // 统计 link、script、audio、video 和 img 资源错误
   if ((evt as any).target.tagName) {

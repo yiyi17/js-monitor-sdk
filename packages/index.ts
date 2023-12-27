@@ -7,7 +7,7 @@ import initMonitor from './browser';
 import loggerSender from './core';
 import {
   // initStatsc,
-  initJSLogger
+  initJSLogger,
 } from './utils';
 
 declare global {
@@ -25,15 +25,15 @@ const optsDefault: Opts = {
   trace: {
     open: false,
     apiList: [],
-    ignoreList: []
+    ignoreList: [],
   },
   runtimeError: false,
   userActions: false,
   metrics: false,
   common: {
     disableLog: false,
-    projectId: 'msfe'
-  }
+    projectId: 'msfe',
+  },
 };
 
 let hasNew = false;
@@ -51,7 +51,7 @@ export default class JSLogger {
     this.opts = opts
       ? {
           ...optsDefault,
-          ...opts
+          ...opts,
         }
       : optsDefault;
 
@@ -80,7 +80,7 @@ export default class JSLogger {
     if (!esIndexKeyword) throw Error('arguments need two, but one');
     const { common } = this.opts;
     Object.assign(common, {
-      esIndexKeyword
+      esIndexKeyword,
     });
     Object.assign(data, { type: 'show' });
     // es索引为： `fe-show-${esIndexKeyword}`
@@ -95,7 +95,7 @@ export default class JSLogger {
 
     const { common } = this.opts;
     Object.assign(common, {
-      esIndexKeyword
+      esIndexKeyword,
     });
     Object.assign(data, { type: 'click' });
     // es索引为： `fe-click-${esIndexKeyword}`

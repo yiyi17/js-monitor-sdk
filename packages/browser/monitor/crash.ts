@@ -9,7 +9,7 @@ if (navigator.serviceWorker.controller !== null) {
     window.navigator.serviceWorker.controller.postMessage({
       type: 'heartbeat',
       id: sessionId,
-      data: {} // 附加信息，如果页面 crash，上报的附加数据
+      data: {}, // 附加信息，如果页面 crash，上报的附加数据
     });
   };
 
@@ -17,7 +17,7 @@ if (navigator.serviceWorker.controller !== null) {
     // @ts-ignore
     navigator.serviceWorker.controller.postMessage({
       type: 'unload',
-      id: sessionId
+      id: sessionId,
     });
   });
   setInterval(heartbeat, HEARTBEAT_INTERVAL);
@@ -57,7 +57,7 @@ Worker.addEventListener('message', (e) => {
   if (data.type === 'heartbeat') {
     // @ts-ignore
     pages[data.id] = {
-      t: Date.now()
+      t: Date.now(),
     };
     if (!timer) {
       timer = setInterval(function () {

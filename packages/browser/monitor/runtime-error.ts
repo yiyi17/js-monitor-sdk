@@ -1,7 +1,7 @@
 import {
   Common,
   InitOpts as Opts,
-  LogSender
+  LogSender,
 } from 'js-monitor-sdk/types/packages/types/index.types';
 import { getPageRoute, getUserClick, getUserInput } from '../libs/actions';
 import { addEvent } from '../libs/event';
@@ -106,7 +106,7 @@ export function unhandledRejection(sender: LogSender, common: Common): void {
 
 export default function getRuntimeError(
   sender: LogSender,
-  common: Opts['common'] & { opts: Opts }
+  common: Opts['common'] & { opts: Opts },
 ): void {
   const { opts } = common;
   const { userActions } = opts;

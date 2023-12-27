@@ -32,7 +32,7 @@ export default function getPerformanceData(): PerformaceData {
     fcp: -1,
     rd: -1,
     https: '',
-    wherepage: -1
+    wherepage: -1,
   };
 
   if (_performance) {

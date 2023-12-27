@@ -25,7 +25,7 @@ export default function slowPage(sender: LogSender, common: Opts['common'] & { o
       dns: resource.domainLookupStart - resource.domainLookupEnd,
       protocol: resource.nextHopProtocol,
       name: resource.name,
-      ...network
+      ...network,
     };
     res_data.push(data);
   });

@@ -100,7 +100,7 @@
   },
   "main": "dist/js-monitor-sdk.umd.js",
   "module": "dist/js-monitor-sdk-polyfill.esm.js",
-  "name": "js-monitor-sdk",
+  "name": "@pvjs/js-monitor-sdk",
   "prettier": {
     "semi": true,
     "singleQuote": true
@@ -140,5 +140,5 @@
     "travis-deploy-once": "travis-deploy-once"
   },
   "typings": "dist/types/packages/index.d.ts",
-  "version": "0.6.0"
+  "version": "0.0.1"
 }

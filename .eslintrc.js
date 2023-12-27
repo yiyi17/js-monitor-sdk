@@ -10,18 +10,18 @@ module.exports = {
       parserOptions: {
         tsconfigRootDir: __dirname,
         project: ['./tsconfig.eslint.json'],
-        sourceType: 'module'
-      }
-    }
+        sourceType: 'module',
+      },
+    },
   ],
   rules: {
     'prettier/prettier': [
       'error',
       {
-        trailingComma: 'none',
+        trailingComma: 'all',
         singleQuote: true,
-        usePrettierrc: false
-      }
+        usePrettierrc: false,
+      },
     ],
     'linebreak-style': [0, 'error', 'windows'],
     'no-new': 0,
@@ -44,11 +44,11 @@ module.exports = {
     '@typescript-eslint/no-non-null-assertion': 0,
     '@typescript-eslint/no-explicit-any': 0,
     '@typescript-eslint/ban-ts-comment': 0,
-    '@typescript-eslint/ban-types': 0
+    '@typescript-eslint/ban-types': 0,
   },
   env: {
     browser: true,
-    es6: true
+    es6: true,
   },
   globals: {
     document: true,
@@ -57,6 +57,6 @@ module.exports = {
     jQuery: true,
     $: true,
     workbox: true,
-    importScripts: true
-  }
+    importScripts: true,
+  },
 };

@@ -6,6 +6,6 @@ export default async function (data: any) {
   send.method.post({
     url: '//spaceZ-web-analytics.spaceZ.com/api/v2/apm/logs/batch',
     data: data,
-    headers: {}
+    headers: {},
   });
 }

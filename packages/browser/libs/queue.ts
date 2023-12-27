@@ -63,7 +63,7 @@ class Queue {
       const { type, ...other } = data;
       return {
         type,
-        extra: JSON.stringify({ ...other })
+        extra: JSON.stringify({ ...other }),
       };
     });
     return result;
@@ -108,7 +108,7 @@ keys.forEach((key) => {
         return () => null;
       }
       return queue[key];
-    }
+    },
   });
 });
 

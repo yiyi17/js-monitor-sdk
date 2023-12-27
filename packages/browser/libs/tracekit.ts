@@ -180,7 +180,7 @@ TraceKit.report = (function reportModuleWrapper() {
       stack: { url: any; line: any; column: any }[];
     } | null,
     isWindowError: boolean,
-    error: null
+    error: null,
   ) {
     let exception = null;
     // @ts-ignore
@@ -219,7 +219,7 @@ TraceKit.report = (function reportModuleWrapper() {
     url: any,
     lineNo: any,
     columnNo: any,
-    errorObj: null
+    errorObj: null,
   ) {
     let stack = null;
     // @ts-ignore
@@ -232,7 +232,7 @@ TraceKit.report = (function reportModuleWrapper() {
         lastExceptionStack,
         url,
         lineNo,
-        message
+        message,
       );
       processLastException();
     } else if (errorObj) {
@@ -243,7 +243,7 @@ TraceKit.report = (function reportModuleWrapper() {
       const location = {
         url: url,
         line: lineNo,
-        column: columnNo
+        column: columnNo,
       };
 
       let name;
@@ -263,7 +263,7 @@ TraceKit.report = (function reportModuleWrapper() {
         name: name,
         message: msg,
         mode: 'onerror',
-        stack: [location]
+        stack: [location],
       };
 
       notifyHandlers(stack, true, null);
@@ -343,7 +343,7 @@ TraceKit.report = (function reportModuleWrapper() {
           processLastException();
         }
       },
-      stack.incomplete ? 2000 : 0
+      stack.incomplete ? 2000 : 0,
     );
 
     throw ex; // re-throw to propagate to the top level (and cause window.onerror)
@@ -649,7 +649,7 @@ TraceKit.computeStackTrace = (function computeStackTraceWrapper() {
           return {
             url: urls[i],
             line: source.substring(0, m.index).split('\n').length,
-            column: m.index - source.lastIndexOf('\n', m.index) - 1
+            column: m.index - source.lastIndexOf('\n', m.index) - 1,
           };
         }
       }
@@ -731,7 +731,7 @@ TraceKit.computeStackTrace = (function computeStackTraceWrapper() {
 
       body = escapeRegExp(parts[3]).replace(/;$/, ';?'); // semicolon is inserted if the function ends with a comment.replace(/\s+/g, '\\s+');
       re = new RegExp(
-        'function' + name + '\\s*\\(\\s*' + args + '\\s*\\)\\s*{\\s*' + body + '\\s*}'
+        'function' + name + '\\s*\\(\\s*' + args + '\\s*\\)\\s*{\\s*' + body + '\\s*}',
       );
     }
 
@@ -857,7 +857,7 @@ TraceKit.computeStackTrace = (function computeStackTraceWrapper() {
           func: parts[1] || UNKNOWN_FUNCTION,
           args: isNative ? [parts[2]] : [],
           line: parts[3] ? +parts[3] : null,
-          column: parts[4] ? +parts[4] : null
+          column: parts[4] ? +parts[4] : null,
         };
       } else if ((parts = winjs.exec(lines[i]))) {
         element = {
@@ -865,7 +865,7 @@ TraceKit.computeStackTrace = (function computeStackTraceWrapper() {
           func: parts[1] || UNKNOWN_FUNCTION,
           args: [],
           line: +parts[3],
-          column: parts[4] ? +parts[4] : null
+          column: parts[4] ? +parts[4] : null,
         };
       } else if ((parts = gecko.exec(lines[i]))) {
         isEval = parts[3] && parts[3].indexOf(' > eval') > -1;
@@ -890,7 +890,7 @@ TraceKit.computeStackTrace = (function computeStackTraceWrapper() {
           func: parts[1] || UNKNOWN_FUNCTION,
           args: parts[2] ? parts[2].split(',') : [],
           line: parts[4] ? +parts[4] : null,
-          column: parts[5] ? +parts[5] : null
+          column: parts[5] ? +parts[5] : null,
         };
       } else {
         continue;
@@ -917,7 +917,7 @@ TraceKit.computeStackTrace = (function computeStackTraceWrapper() {
       mode: 'stack',
       name: ex.name,
       message: ex.message,
-      stack: stack
+      stack: stack,
     };
   }
 
@@ -956,7 +956,7 @@ TraceKit.computeStackTrace = (function computeStackTraceWrapper() {
           line: +parts[1],
           column: null,
           func: parts[3],
-          args: []
+          args: [],
         };
       } else if ((parts = opera11Regex.exec(lines[line]))) {
         element = {
@@ -964,7 +964,7 @@ TraceKit.computeStackTrace = (function computeStackTraceWrapper() {
           line: +parts[1],
           column: +parts[2],
           func: parts[3] || parts[4],
-          args: parts[5] ? parts[5].split(',') : []
+          args: parts[5] ? parts[5].split(',') : [],
         };
       }
 
@@ -999,7 +999,7 @@ TraceKit.computeStackTrace = (function computeStackTraceWrapper() {
       mode: 'stacktrace',
       name: ex.name,
       message: ex.message,
-      stack: stack
+      stack: stack,
     };
   }
 
@@ -1064,7 +1064,7 @@ TraceKit.computeStackTrace = (function computeStackTraceWrapper() {
           func: parts[3],
           args: [],
           line: +parts[1],
-          column: null
+          column: null,
         };
       } else if ((parts = lineRE2.exec(lines[line]))) {
         item = {
@@ -1072,7 +1072,7 @@ TraceKit.computeStackTrace = (function computeStackTraceWrapper() {
           func: parts[4],
           args: [],
           line: +parts[1],
-          column: null // TODO: Check to see if inline#1 (+parts[2]) points to the script number or column number.
+          column: null, // TODO: Check to see if inline#1 (+parts[2]) points to the script number or column number.
         };
         const relativeLine = +parts[1]; // relative to the start of the <SCRIPT> block
         // @ts-ignore
@@ -1097,7 +1097,7 @@ TraceKit.computeStackTrace = (function computeStackTraceWrapper() {
           func: '',
           args: [],
           line: src ? src.line : parts[1],
-          column: null
+          column: null,
         };
       }
 
@@ -1128,7 +1128,7 @@ TraceKit.computeStackTrace = (function computeStackTraceWrapper() {
       mode: 'multiline',
       name: ex.name,
       message: lines[0],
-      stack: stack
+      stack: stack,
     };
   }
 
@@ -1157,11 +1157,11 @@ TraceKit.computeStackTrace = (function computeStackTraceWrapper() {
     },
     url: any,
     lineNo: any,
-    message: string
+    message: string,
   ) {
     const initial = {
       url: url,
-      line: lineNo
+      line: lineNo,
     };
 
     if (initial.url && initial.line) {
@@ -1233,7 +1233,7 @@ TraceKit.computeStackTrace = (function computeStackTraceWrapper() {
       line: any;
       lineNumber: any;
     },
-    depth: number | undefined
+    depth: number | undefined,
   ) {
     // eslint-disable-next-line prefer-const
     let functionName = /function\s+([_$a-zA-Z\xA0-\uFFFF][_$a-zA-Z0-9\xA0-\uFFFF]*)?\s*\(/i,
@@ -1262,7 +1262,7 @@ TraceKit.computeStackTrace = (function computeStackTraceWrapper() {
         func: UNKNOWN_FUNCTION,
         args: [],
         line: null,
-        column: null
+        column: null,
       };
 
       if (curr.name) {
@@ -1315,13 +1315,13 @@ TraceKit.computeStackTrace = (function computeStackTraceWrapper() {
       mode: 'callers',
       name: ex.name,
       message: ex.message,
-      stack: stack
+      stack: stack,
     };
     augmentStackTraceWithInitialElement(
       result,
       ex.sourceURL || ex.fileName,
       ex.line || ex.lineNumber,
-      ex.message || ex.description
+      ex.message || ex.description,
     );
     return result;
   }
@@ -1397,7 +1397,7 @@ TraceKit.computeStackTrace = (function computeStackTraceWrapper() {
       // @ts-ignore
 
       message: ex.message,
-      mode: 'failed'
+      mode: 'failed',
     };
   }
 

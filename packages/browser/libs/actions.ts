@@ -1,7 +1,7 @@
 import {
   HistoryArguments,
   HistoryArgumentsItem,
-  IHistory
+  IHistory,
 } from 'js-monitor-sdk/types/packages/types/index.types';
 import queue, { ErrorInfo } from '../libs/queue';
 
@@ -17,7 +17,7 @@ export const getUserClick = (): void => {
         path = [],
         target,
         pointerType = 'null',
-        composedPath
+        composedPath,
       } = event as PointerEvent & { path: any };
       // 判断是否人为触发
       const type = pointerType ? 'click' : 'jsClick';
@@ -42,10 +42,10 @@ export const getUserClick = (): void => {
         path: pathText,
         outerHTML,
         tagName,
-        className
+        className,
       });
     },
-    true
+    true,
   );
 };
 
@@ -79,7 +79,7 @@ const handleUserInput = (event: any) => {
     content,
     userInputTarget: target,
     tagName,
-    className
+    className,
   };
   const result = queue.get();
   if (!Array.isArray(result)) return;
@@ -115,7 +115,7 @@ const bindEventListener = function (type: string) {
       state,
       title,
       from,
-      to: url
+      to: url,
     };
     window.dispatchEvent(e);
     return newEvent;
@@ -135,7 +135,7 @@ export const getPageRoute = (): void => {
     queue.push({
       type: 'replaceState',
       from,
-      to
+      to,
     });
   });
 
@@ -146,7 +146,7 @@ export const getPageRoute = (): void => {
     queue.push({
       type: 'pushState',
       from,
-      to
+      to,
     });
   });
 
@@ -154,7 +154,7 @@ export const getPageRoute = (): void => {
   window.addEventListener('popstate', () => {
     queue.push({
       type: 'popstate',
-      to: window.location.href
+      to: window.location.href,
     });
   });
 };

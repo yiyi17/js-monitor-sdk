@@ -107,7 +107,7 @@ const methods = {
       type: 'POST',
       url: options.url,
       data: options.data,
-      headers: options.headers
+      headers: options.headers,
     });
   },
   /*
@@ -126,11 +126,11 @@ const methods = {
       data: options.data,
       headers: options.headers,
       success: options.success,
-      fail: options.fail
+      fail: options.fail,
     });
-  }
+  },
 };
 
 export const send = {
-  method: methods
+  method: methods,
 };

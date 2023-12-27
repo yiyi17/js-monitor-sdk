@@ -1,7 +1,7 @@
 import {
   InitOpts as Opts,
   LogSender,
-  SData
+  SData,
 } from 'js-monitor-sdk/types/packages/types/index.types';
 import { isIgnore, isNotApi, isDefaultApi } from '../libs';
 import { getConnectionStatus } from '../libs/network';
@@ -40,7 +40,7 @@ function checkReq(url: string): CheckReq {
       dns: resource.domainLookupStart - resource.domainLookupEnd,
       protocol: resource.nextHopProtocol,
       // name: resource.name,
-      ...network
+      ...network,
     };
   } else {
     return {};
@@ -55,11 +55,11 @@ function checkReq(url: string): CheckReq {
 export default function getRequestLogger(
   sender: LogSender,
   common: Opts['common'] & { opts: Opts },
-  options: Partial<Pick<Opts, 'trace'>>
+  options: Partial<Pick<Opts, 'trace'>>,
 ): void {
   const opts = {
     hostFilter: [], // 日志上报接口不做监听
-    ...options
+    ...options,
   };
   /*
    * 拦截ajax请求，保存data
@@ -80,7 +80,7 @@ export default function getRequestLogger(
       method: string,
       url: string,
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      boolen: boolean
+      boolen: boolean,
     ) {
       // eslint-disable-next-line @typescript-eslint/no-this-alias
       const self = this;
@@ -102,7 +102,7 @@ export default function getRequestLogger(
         time: -1,
         status: -1,
         statusText: '',
-        response: {}
+        response: {},
       };
 
       self.addEventListener('readystatechange', function () {
@@ -178,7 +178,7 @@ export default function getRequestLogger(
               status: item.status,
               statusText: item.statusText,
               ...checkReq(item.url),
-              trace_id: item.trace_id
+              trace_id: item.trace_id,
             };
             queue.push(sData);
             // 需要上报
@@ -231,19 +231,19 @@ export default function getRequestLogger(
             if (options) {
               options.headers = {
                 ...options?.headers,
-                'X-B3-Traceid': trace_id
+                'X-B3-Traceid': trace_id,
               };
             } else {
               options = {
                 headers: {
-                  'X-B3-Traceid': trace_id
-                }
+                  'X-B3-Traceid': trace_id,
+                },
               };
             }
           }
           return new Promise((resolve, reject) => {
             originFetch(url, {
-              ...options
+              ...options,
             })
               .then((res) => {
                 const spendTime = Date.now() - startTime;
@@ -277,7 +277,7 @@ export default function getRequestLogger(
                   status: res.status,
                   statusText: res.statusText,
                   ...checkReq(res.url),
-                  trace_id
+                  trace_id,
                 };
 
                 queue.push(sData);
@@ -300,7 +300,7 @@ export default function getRequestLogger(
       },
       set() {
         //兼容业务的window.fetch重写问题
-      }
+      },
     });
   };
   fetchRequest();

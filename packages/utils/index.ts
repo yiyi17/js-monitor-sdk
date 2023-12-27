@@ -25,7 +25,7 @@ export function initJSLogger(JSLogger: any): void {
       trace: {
         apiList: [],
         ignoreList: [],
-        open: false
+        open: false,
       }, // 接入trace
       common: {
         disableLog: disableLog === 'yes', // 是否禁止日志上报，建议本地改为 true
@@ -34,8 +34,8 @@ export function initJSLogger(JSLogger: any): void {
         userId: '', // 非必传，出入 userId 可以按照用户进行区分
         extra: {
           // ... 其他字段，非必传
-        }
-      }
+        },
+      },
     });
   }
 }

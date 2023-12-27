@@ -15,13 +15,13 @@ export function getIp(): void {
       const res = JSON.parse(data);
       // console.log(res.dns[0].client_ip);
       window.returnCitySN = {
-        client_ip: res.dns[0].client_ip
+        client_ip: res.dns[0].client_ip,
       };
       return;
     },
     fail: () => {
       // console.log(err);
       return '';
-    }
+    },
   });
 }

@@ -27,15 +27,15 @@ function initSDK() {
         defaultSendHandler: () => {
           // eslint-disable-next-line no-console
           console.log('defaultSendHandler');
-        }
-      }
+        },
+      },
     ) => {
       // 是否不上报日志
       const isEnableSend = true;
       try {
         // 获取 ip
         monitorLogEntry.base.network = {
-          internet_ip: window.returnCitySN.client_ip
+          internet_ip: window.returnCitySN.client_ip,
         };
 
         // 获取 client_id,可以与大数据打通
@@ -51,11 +51,11 @@ function initSDK() {
       // eslint-disable-next-line no-console
       // console.log(JSON.parse(monitorLogEntry.extra.monitor.json_log.json));
       return isEnableSend ? defaultSendHandler && defaultSendHandler(monitorLogEntry) : false;
-    }
+    },
   };
   if (window.monitor) {
     monitorInstance = new window.monitor.Client({
-      ...monitorConfig
+      ...monitorConfig,
     });
     monitorInstance.config(monitorConfig);
     monitorInit = true;
@@ -75,7 +75,7 @@ async function handleLoggerData(logger: any) {
     ua: navigator.userAgent.toLowerCase(),
     page_url: href && href.split('?')[0],
     current_href: href,
-    ...window.returnCitySN
+    ...window.returnCitySN,
   };
 
   // 设置 es 索引值
@@ -96,15 +96,15 @@ async function handleLoggerData(logger: any) {
     console.info('%c[js-monitor-sdk.logData]', `color: green`, {
       logData: {
         ...defaultData,
-        ...logger
-      }
+        ...logger,
+      },
     });
   }
 
   return {
     type,
     defaultData,
-    disableLog
+    disableLog,
   };
 }
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
@@ -124,11 +124,11 @@ export async function webUpload(logger: any): Promise<void> {
             type: type,
             json: JSON.stringify({
               ...defaultData,
-              ...logger
-            })
-          }
-        }
-      }
+              ...logger,
+            }),
+          },
+        },
+      },
     );
 }
 
@@ -173,9 +173,9 @@ export async function hybridUpload(logger: any): Promise<void> {
           indexName: `hybrid-${type}`,
           params: {
             ...defaultData,
-            ...logger
-          }
-        }
+            ...logger,
+          },
+        },
       };
 
       // since 2.27.0

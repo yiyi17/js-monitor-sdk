@@ -38,8 +38,8 @@ export default function initMonitor(opts: Opts): void {
         { ...data, ...memory },
         {
           opts,
-          ...common
-        }
+          ...common,
+        },
       );
 
       //上报 FID CLS LCP
@@ -49,7 +49,7 @@ export default function initMonitor(opts: Opts): void {
       if (data?.load > LIMIT_TIME) {
         slowPage(loggerSender, {
           opts,
-          ...common
+          ...common,
         });
       }
     };
@@ -74,7 +74,7 @@ export default function initMonitor(opts: Opts): void {
         if (data) {
           loggerSender(data, {
             opts,
-            ...common
+            ...common,
           });
         }
       });
@@ -88,11 +88,11 @@ export default function initMonitor(opts: Opts): void {
           queue.push(data);
           loggerSender(data, {
             opts,
-            ...common
+            ...common,
           });
         }
       },
-      true
+      true,
     );
   }
 
@@ -102,9 +102,9 @@ export default function initMonitor(opts: Opts): void {
       loggerSender,
       {
         opts,
-        ...common
+        ...common,
       },
-      { trace }
+      { trace },
     );
   }
 
@@ -112,7 +112,7 @@ export default function initMonitor(opts: Opts): void {
   if (runtimeError) {
     getRuntimeError(loggerSender, {
       opts,
-      ...common
+      ...common,
     });
   }
 }

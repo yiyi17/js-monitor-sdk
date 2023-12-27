@@ -25,7 +25,7 @@ export default (data: any, common: any): void => {
   }
   const logger = {
     ...data,
-    ...common
+    ...common,
   };
   // 数据上报
   if (ua.SpaceZHybrid) {
@@ -40,3 +40,8 @@ export default (data: any, common: any): void => {
     webUpload(logger);
   }
 };
+
+export function postWeberJSON(data: any): void {
+  // eslint-disable-next-line no-console
+  console.log(data);
+}

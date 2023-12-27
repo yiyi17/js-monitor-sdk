@@ -15,14 +15,14 @@ export default function longTaskMonitor({ projectId }: LongTaskMonitorOpt): void
             platform: 'web',
             project: projectId,
             page_url: href && href.split('?')[0],
-            current_href: href
+            current_href: href,
           },
           data: {
             name,
             startTime,
             duration,
-            attribution: (entry as any)?.attribution || []
-          }
+            attribution: (entry as any)?.attribution || [],
+          },
         });
       });
     });
