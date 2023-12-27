@@ -1,7 +1,7 @@
 import fetch from 'node-fetch';
 import initMonitor from '../index';
 import getPerformanceData, { getWebVitals } from '../monitor/performance';
-import getMemory from '../monitor/memory'
+import getMemory from '../monitor/memory';
 import getRequestLogger from '../monitor/request';
 import getResourceError from '../monitor/resourc-error';
 import getRuntimeError from '../monitor/runtime-error';
@@ -16,7 +16,7 @@ jest.mock('../monitor/resourc-error');
 
 jest.mock('../monitor/performance');
 
-jest.mock('../monitor/memory')
+jest.mock('../monitor/memory');
 
 describe('all features enabled', () => {
   const opts = {
@@ -54,13 +54,13 @@ describe('all features enabled', () => {
       writable: true,
     });
     initMonitor({ ...opts, performance: true });
-    expect(getMemory).toHaveBeenCalled()
+    expect(getMemory).toHaveBeenCalled();
     expect(getPerformanceData).toHaveBeenCalled();
     expect(getWebVitals).toHaveBeenCalled();
   });
 
   it('should parse option "resourceError"', () => {
-    window.__RESOURCEERROR__ = BeforeLoadErrorArr;
+    window.__RESOURCE_ERROR__ = BeforeLoadErrorArr;
     const spyAddEventsListener = jest.spyOn(window, 'addEventListener');
     initMonitor({ ...opts, resourceError: true });
 
@@ -69,7 +69,7 @@ describe('all features enabled', () => {
     onError();
     expect(getResourceError).toHaveBeenCalledTimes(BeforeLoadErrorArr.length + 1);
     spyAddEventsListener.mockRestore();
-    window.__RESOURCEERROR__ = undefined;
+    window.__RESOURCE_ERROR__ = undefined;
   });
 
   it('should parse option "getRequestLogger"', () => {

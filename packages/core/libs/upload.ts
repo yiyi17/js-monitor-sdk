@@ -1,11 +1,11 @@
 import { version } from '../../../package.json';
 import { sleep } from './index';
-import ua from './ua';
+import { ua } from '../../config';
 
 declare global {
   interface Window {
     // 这里定义
-    monitor: any;
+    __monitor__: any;
     returnCitySN: any;
   }
 }
@@ -53,8 +53,8 @@ function initSDK() {
       return isEnableSend ? defaultSendHandler && defaultSendHandler(monitorLogEntry) : false;
     },
   };
-  if (window.monitor) {
-    monitorInstance = new window.monitor.Client({
+  if (window.__monitor__) {
+    monitorInstance = new window.__monitor__.Client({
       ...monitorConfig,
     });
     monitorInstance.config(monitorConfig);
@@ -109,7 +109,7 @@ async function handleLoggerData(logger: any) {
 }
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export async function webUpload(logger: any): Promise<void> {
-  if (window.monitor && !monitorInit) {
+  if (window.__monitor__ && !monitorInit) {
     initSDK();
   }
   const { type, defaultData, disableLog } = await handleLoggerData(logger);
@@ -145,7 +145,7 @@ export function webUploadTempData(loggerTemp: any): void {
         webUpload(loggerTemp[0]);
         loggerTemp.shift();
       }
-    } else if (!window.monitor) {
+    } else if (!window.__monitor__) {
       // 依赖 monitor，如果业务确实没有monitor，需要业务自己引入
       // eslint-disable-next-line no-console
       console.warn('monitor 没有初始化成功，请检查代码');
@@ -193,20 +193,3 @@ export async function hybridUpload(logger: any): Promise<void> {
     webUpload(logger);
   }
 }
-
-export default {};
-
-// 索引的创建规则：默认索引，根据日志类型来创建索引
-
-/**
- * mp-apm-fe-monitor
- * mp-apm-fe-performance
- * mp-apm-fe-slowpage
- * mp-apm-fe-reqerror
- * mp-apm-fe-reqperf
- * mp-apm-fe-resourceerror
- * mp-apm-fe-script
- * */
-
-// 看数据情况是否根据项目进行创建索引，
-// 如果根据项目进行拆分索引，就按照业务传来的 esIndexKeyword 拼接

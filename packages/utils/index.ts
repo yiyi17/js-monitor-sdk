@@ -1,7 +1,3 @@
-// import Client from './statsc-client/esm/index';
-export default {};
-
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export function initJSLogger(JSLogger: any): void {
   let instanced;
   let disableLog;
@@ -39,9 +35,3 @@ export function initJSLogger(JSLogger: any): void {
     });
   }
 }
-
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-// export function initStatsc(appName: string): any {
-//   const statsc = Client.connect({ appName });
-//   return statsc;
-// }

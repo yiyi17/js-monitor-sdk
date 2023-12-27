@@ -187,6 +187,10 @@ export function getWebVitals(fn: ReportHandler): void {
   btn.style.height = 0 + 'px';
   btn.style.width = 0 + 'px';
   document.body.appendChild(btn);
+  // 阻止冒泡
+  btn.onclick = function (e) {
+    e?.stopPropagation();
+  };
   btn.click();
   document.body.removeChild(btn);
 }

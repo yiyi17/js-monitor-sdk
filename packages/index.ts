@@ -1,19 +1,12 @@
-// 日志的class 类
-
-// console.log('%c start success', 'color:green;font-size:20px;');
-
 import { InitOpts as Opts } from 'js-monitor-sdk/types/packages/types/index.types';
 import initMonitor from './browser';
 import loggerSender from './core';
-import {
-  // initStatsc,
-  initJSLogger,
-} from './utils';
+import { initJSLogger } from './utils';
 
 declare global {
   interface Window {
     // 这里定义
-    JSLogger: any;
+    __JSLogger__: any;
   }
 }
 
@@ -32,7 +25,7 @@ const optsDefault: Opts = {
   metrics: false,
   common: {
     disableLog: false,
-    projectId: 'msfe',
+    projectId: 'dev_project',
   },
 };
 
@@ -40,7 +33,6 @@ let hasNew = false;
 
 export default class JSLogger {
   private opts: Opts = optsDefault;
-  statsc: any;
 
   constructor(opts: Partial<Opts>) {
     if (hasNew) {
@@ -65,16 +57,16 @@ export default class JSLogger {
 
   private init() {
     // 初始化日志，进行采集上报
-    // const { common, metrics } = this.opts;
-
     initMonitor(this.opts);
-    // if (metrics) {
-    // this.statsc = initStatsc(common.projectId);
-    // }
   }
 
-  // 展现日志
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+  /**
+   *
+   * @param data 上报日志内容
+   * @param esIndexKeyword 关键标识
+   * @returns
+   * @description 展现日志
+   */
   show(data: any, esIndexKeyword: string): void {
     if (!data) return;
     if (!esIndexKeyword) throw Error('arguments need two, but one');
@@ -83,12 +75,16 @@ export default class JSLogger {
       esIndexKeyword,
     });
     Object.assign(data, { type: 'show' });
-    // es索引为： `fe-show-${esIndexKeyword}`
     loggerSender(data, common);
   }
 
-  // 点击日志
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+  /**
+   *
+   * @param data 上报日志内容
+   * @param esIndexKeyword 关键标识
+   * @returns
+   * @description 点击日志
+   */
   click(data: any, esIndexKeyword: string): void {
     if (!data) return;
     if (!esIndexKeyword) throw Error('arguments need two, but one');
@@ -98,22 +94,11 @@ export default class JSLogger {
       esIndexKeyword,
     });
     Object.assign(data, { type: 'click' });
-    // es索引为： `fe-click-${esIndexKeyword}`
     loggerSender(data, common);
-  }
-
-  metrics(): void {
-    console.warn('已不支持,请接入 指标SDK：@cfe/statsc-client');
-
-    // if (!this.statsc) {
-    //   console.warn('%cStatsc Client is not init.', 'color:blue;font-size:12px;');
-    //   return;
-    // }
-    // this.statsc.increment(metricsData);
   }
 }
 
-window.JSLogger = JSLogger;
+window.__JSLogger__ = JSLogger;
 
 // hybrid中直接进行实例化，通过自定义属性获取
 

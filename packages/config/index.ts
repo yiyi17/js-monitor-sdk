@@ -1,6 +1,12 @@
+export const SERVER_URL = '';
+
+// 如果自己没有可以考虑 sohu 的 https://pv.sohu.com/cityjson?ie=utf-8,貌似用不了了
+// 自建 IP 服务
+export const IP_SERVER_URL = '';
+
 const UA = navigator.userAgent;
 
-export default {
+export const ua = {
   UA,
   Mobile: /Mobile/.test(UA),
   Android: /Android/.test(UA),

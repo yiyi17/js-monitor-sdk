@@ -1,5 +1,5 @@
 import { send } from './send';
-import ua from './ua';
+import { IP_SERVER_URL, ua } from '../../config';
 
 export const sleep = (time: number): Promise<void> =>
   new Promise((resolve) => {
@@ -10,7 +10,7 @@ export const sleep = (time: number): Promise<void> =>
 export function getIp(): void {
   if (ua.SpaceZHybrid) return;
   send.method.get({
-    url: '//118.89.204.198/resolv?host=www.spaceZ.com&os_type=web',
+    url: IP_SERVER_URL,
     success: (data: any) => {
       const res = JSON.parse(data);
       // console.log(res.dns[0].client_ip);

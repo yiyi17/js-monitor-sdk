@@ -17,21 +17,19 @@ const LIMIT_TIME = 8000;
 declare global {
   interface Window {
     // 这里定义
-    __RESOURCEERROR__: any;
+    __RESOURCE_ERROR__: any;
   }
 }
 
 export default function initMonitor(opts: Opts): void {
-  // console.log('initMonitor-opts', opts);
-
   const { trace, performance, resourceError, runtimeError, request, common } = opts;
 
-  // delete opts.common;
   // 加载的性能数据
   if (performance) {
     const dataToSend = () => {
       // performance data
       const data = getPerformanceData();
+      // 内存
       const memory = getMemory();
 
       loggerSender(
@@ -67,9 +65,8 @@ export default function initMonitor(opts: Opts): void {
   // 如果不是在 header 里面加载，可能有些不能捕获
   if (resourceError) {
     // TODO: 判断 非header 中且开启资源错误收集，给出 warning
-    if (window.__RESOURCEERROR__ && window.__RESOURCEERROR__.length) {
-      // console.log('__RESOURCEERROR__', __RESOURCEERROR__);
-      window.__RESOURCEERROR__.forEach((event: Event) => {
+    if (window.__RESOURCE_ERROR__ && window.__RESOURCE_ERROR__.length) {
+      window.__RESOURCE_ERROR__.forEach((event: Event) => {
         const data = getResourceError(event);
         if (data) {
           loggerSender(data, {
