@@ -8,7 +8,7 @@
 
 TODO:
 
-数据的收集服务需要自己建设，这里需要修改接口在 core/config 文件中 `SERVER_URL`、`IP_SERVER_URL`，并实现 core/upload 的逻辑代码。
+数据的收集服务需要自己建设，这里需要修改接口在 core/config 文件中 `SERVER_URL`、`IP_SERVER_URL`，并实现 `core/lib/upload#uploadLogData` 的逻辑代码。
 
 ```JS
 import JSLogger from 'js-monitor-sdk'
