@@ -1,5 +1,6 @@
 import { send } from './send';
-import { IP_SERVER_URL, ua } from '../../config';
+import { IP_SERVER_URL, ua } from '../config';
+import { version } from '../../../package.json';
 
 export const sleep = (time: number): Promise<void> =>
   new Promise((resolve) => {
@@ -24,4 +25,53 @@ export function getIp(): void {
       return '';
     },
   });
+}
+
+// 处理数据
+export async function handleLoggerData(logger: any): Promise<{
+  type: string;
+  defaultData: any;
+  disableLog: any;
+}> {
+  // 公共参数
+  if (!window.returnCitySN && !ua.SpaceZHybrid) {
+    await sleep(1000);
+  }
+
+  const href = window.location.href;
+  const defaultData = {
+    monitor_monitor_version: version,
+    ua: navigator.userAgent.toLowerCase(),
+    page_url: href && href.split('?')[0],
+    current_href: href,
+    ...window.returnCitySN,
+  };
+
+  const defaultESIndex = 'fe-monitor';
+  const { esIndexKeyword, disableLog } = logger;
+  let type = defaultESIndex;
+  if (esIndexKeyword) {
+    type = logger.type
+      ? `fe-${logger.type}-${esIndexKeyword}`
+      : `${defaultESIndex}-${esIndexKeyword}`;
+  } else {
+    type = logger.type ? `fe-${logger.type}` : `${defaultESIndex}`;
+  }
+
+  // 是否禁止上报
+  if (disableLog) {
+    // eslint-disable-next-line no-console
+    console.info('%c[js-monitor-sdk.logData]', `color: green`, {
+      logData: {
+        ...defaultData,
+        ...logger,
+      },
+    });
+  }
+
+  return {
+    type,
+    defaultData,
+    disableLog,
+  };
 }

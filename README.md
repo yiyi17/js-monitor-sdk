@@ -8,7 +8,7 @@
 
 TODO:
 
-数据的收集服务需要自己建设，这里需要修改接口在 config 文件中 `SERVER_URL`、`IP_SERVER_URL`
+数据的收集服务需要自己建设，这里需要修改接口在 core/config 文件中 `SERVER_URL`、`IP_SERVER_URL`
 
 ```JS
 import JSLogger from 'js-monitor-sdk'

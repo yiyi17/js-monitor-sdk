@@ -1,6 +1,6 @@
 import { getIp } from './libs/index';
-import { ua } from '../config';
-import { hybridUpload, webUpload, webUploadTempData } from './libs/upload';
+import { ua } from './config';
+import uploadLogData, { webUploadTempData } from './libs/upload';
 
 const loggerTemp: any[] = [];
 let commonTemp: any;
@@ -28,25 +28,15 @@ export default (data: any, common: any): void => {
     ...common,
   };
 
-  // TODO: 需要自己实现上报方法
   // eslint-disable-next-line no-console
   console.log(logger);
 
-  // 数据上报
-  if (ua.SpaceZHybrid) {
-    // 端内依赖 hybrid 上报
-    hybridUpload(logger);
-  } else {
-    if (!window.__monitor__) {
-      // onload 后对暂存的数据进行上报
-      loggerTemp.push(logger);
-      return;
-    }
-    webUpload(logger);
-  }
+  // TODO: 需要自己实现上报方法, 下面的上报逻辑为示例代码
+  uploadLogData(logger, loggerTemp);
 };
 
 export function postWeberJSON(data: any): void {
+  // TODO: 需要自己实现上报方法, 下面的上报逻辑为示例代码
   // eslint-disable-next-line no-console
   console.log(data);
 }

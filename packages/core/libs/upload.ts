@@ -1,6 +1,5 @@
-import { version } from '../../../package.json';
-import { sleep } from './index';
-import { ua } from '../../config';
+import { handleLoggerData, sleep } from './index';
+import { SERVER_URL, ua } from '../config';
 
 declare global {
   interface Window {
@@ -17,8 +16,7 @@ function initSDK() {
   const monitorConfig = {
     useProto3: false,
     enableLog: false,
-    // apiHost: '/api/v1',
-    apiHost: '//apm.spaceZ.com/collector/apm',
+    apiHost: SERVER_URL,
     apiPath: '',
     product: 'SpaceZ',
     onBeforeSend: (
@@ -62,51 +60,6 @@ function initSDK() {
   }
 }
 
-// 处理数据
-async function handleLoggerData(logger: any) {
-  // 公共参数
-  if (!window.returnCitySN && !ua.SpaceZHybrid) {
-    await sleep(1000);
-  }
-
-  const href = window.location.href;
-  const defaultData = {
-    monitor_monitor_version: version,
-    ua: navigator.userAgent.toLowerCase(),
-    page_url: href && href.split('?')[0],
-    current_href: href,
-    ...window.returnCitySN,
-  };
-
-  // 设置 es 索引值
-  const defaultESIndex = 'fe-monitor';
-  const { esIndexKeyword, disableLog } = logger;
-  let type = defaultESIndex;
-  if (esIndexKeyword) {
-    type = logger.type
-      ? `fe-${logger.type}-${esIndexKeyword}`
-      : `${defaultESIndex}-${esIndexKeyword}`;
-  } else {
-    type = logger.type ? `fe-${logger.type}` : `${defaultESIndex}`;
-  }
-
-  // 是否禁止上报
-  if (disableLog) {
-    // eslint-disable-next-line no-console
-    console.info('%c[js-monitor-sdk.logData]', `color: green`, {
-      logData: {
-        ...defaultData,
-        ...logger,
-      },
-    });
-  }
-
-  return {
-    type,
-    defaultData,
-    disableLog,
-  };
-}
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export async function webUpload(logger: any): Promise<void> {
   if (window.__monitor__ && !monitorInit) {
@@ -187,9 +140,22 @@ export async function hybridUpload(logger: any): Promise<void> {
           spaceZHybrid.dispatch(action, params);
     });
   } else {
-    // eslint-disable-next-line no-console
-    console.error('请接入 spaceZ-hybrid，详见： https://hybrid.in.spaceZ.com/');
-    // 依赖hybrid，如果确实没有接入hybrid，需要web上报兜底
+    // 依赖hybrid，如果确实没有接入 hybrid，需要web上报兜底
+    webUpload(logger);
+  }
+}
+
+export default function uploadLogData(logger: any, loggerTemp: any[]): void {
+  // 数据上报
+  if (ua.SpaceZHybrid) {
+    // 端内依赖 hybrid 上报
+    hybridUpload(logger);
+  } else {
+    if (!window.__monitor__) {
+      // onload 后对暂存的数据进行上报
+      loggerTemp.push(logger);
+      return;
+    }
     webUpload(logger);
   }
 }
