@@ -1,9 +1,11 @@
+import { v4 as uuidv4 } from 'uuid';
+
 // 基于 Service Worker 的崩溃统计方案
 // p1：网页加载后，通过 postMessage API 每 5s 给 sw 发送一个心跳，表示自己的在线，sw 将在线的网页登记下来，更新登记时间；
 
 if (navigator.serviceWorker.controller !== null) {
   const HEARTBEAT_INTERVAL = 5 * 1000; // 每五秒发一次心跳
-  const sessionId = uuid();
+  const sessionId = uuidv4();
   const heartbeat = function () {
     // @ts-ignore
     window.navigator.serviceWorker.controller.postMessage({
@@ -70,6 +72,3 @@ Worker.addEventListener('message', (e) => {
     delete pages[data.id];
   }
 });
-function uuid() {
-  throw new Error('Function not implemented.');
-}
